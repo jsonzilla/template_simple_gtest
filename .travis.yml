@@ -15,10 +15,11 @@ before_install:
   - pip install --user cpp-coveralls
 
 script:
-  - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake -DCOVERAGE=1 .
   - mkdir build
   - cd build
-  - cmake --build ../src 
+  - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake -DCOVERAGE=1 ../src
+  - cmake --build .
+  - cd ..
   - ./tests
 
 after_success:
