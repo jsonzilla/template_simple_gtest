@@ -19,7 +19,6 @@ script:
   - cd build
   - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake -DCOVERAGE=1 ../src
   - cmake --build .
-  - cd ..
   - ./tests
 
 after_success:
