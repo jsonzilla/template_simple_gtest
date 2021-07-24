@@ -1,4 +1,4 @@
-# simple_gtest_template
+# template_simple_gtest
 Simple GTest template
 
 ````
