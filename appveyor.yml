@@ -4,7 +4,7 @@ image: Visual Studio 2019
 
 platform:
   - x64
- 
+
 configuration:
   - Release
   - Debug
@@ -13,10 +13,12 @@ install:
     - git submodule update --init --recursive
 
 before_build:
-    - cmake -G "Visual Studio 16 2019" .
+  - mkdir build
+  - cd build
+  - cmake -G "Visual Studio 16 2019" ..\src\
 
 build:
-  project: $(APPVEYOR_BUILD_FOLDER)\$(APPVEYOR_PROJECT_NAME).sln
+  project: $(APPVEYOR_BUILD_FOLDER)\build\$(APPVEYOR_PROJECT_NAME).sln
 
 test_script:
-  - '%APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\tests.exe'
+  - '%APPVEYOR_BUILD_FOLDER%\build\%CONFIGURATION%\tests.exe'
