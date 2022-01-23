@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(simple_gui_template)
+project(template-simple-gtest)
 include(gtest.cmake)
 
 get_filename_component(CURRENT_SOURCE_DIR ../ ABSOLUTE)
@@ -8,7 +8,7 @@ get_filename_component(CURRENT_SOURCE_DIR ../ ABSOLUTE)
 file (GLOB_RECURSE headers "${CURRENT_SOURCE_DIR}/src/*.h")
 file (GLOB_RECURSE sources "${CURRENT_SOURCE_DIR}/src/*.cpp")
 
-add_executable(simple_gui_template 
+add_executable(template-simple-gtest 
     ${headers}
     ${sources}
     ) 
@@ -23,9 +23,8 @@ add_executable(tests
     ${sourcesTests} 
     )
 
-#target_include_directories(simple_gui_template)   
-
-#target_include_directories(tests)   
+target_include_directories(template-simple-gtest PUBLIC "${CURRENT_SOURCE_DIR}/src")
+target_include_directories(tests PUBLIC "${CURRENT_SOURCE_DIR}/src")
 
 find_package (Threads) # REQUIRED for Google Test
 target_link_libraries(tests gtest ${CMAKE_THREAD_LIBS_INIT})    
@@ -38,8 +37,8 @@ if (MSVC)
 
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else()
-    target_compile_options(simple_gui_template PRIVATE -std=c++11 -g -fpermissive)
-    target_compile_options(tests PRIVATE -std=c++11 -g -fpermissive)
+    target_compile_options(template-simple-gtest PRIVATE -std=c++14 -g -fpermissive)
+    target_compile_options(tests PRIVATE -std=c++14 -g -fpermissive)
 endif()
 
 
