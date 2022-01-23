@@ -3,20 +3,20 @@ cmake_minimum_required(VERSION 2.8)
 project(simple_gui_template)
 include(gtest.cmake)
 
-# set(COVERAGE OFF CACHE BOOL "Coverage")
+get_filename_component(CURRENT_SOURCE_DIR ../ ABSOLUTE)
 
-#file(GLOB sources "example.cpp")
-#file(GLOB headers "example.h")
+file (GLOB_RECURSE headers "${CURRENT_SOURCE_DIR}/src/*.h")
+file (GLOB_RECURSE sources "${CURRENT_SOURCE_DIR}/src/*.cpp")
+
 add_executable(simple_gui_template 
-    main.cpp 
     ${headers}
     ${sources}
     ) 
 
-file(GLOB sourcesTests "unit_fixture.cpp")
-file(GLOB headersTests "unit_fixture.h")
+file (GLOB_RECURSE headersTests "${CURRENT_SOURCE_DIR}/tests/*.h")
+file (GLOB_RECURSE sourcesTests "${CURRENT_SOURCE_DIR}/tests/*.cpp")
+
 add_executable(tests 
-    "unit_tests.cpp"
     ${headers}
     ${sources} 
     ${headersTests} 
@@ -27,7 +27,7 @@ add_executable(tests
 
 #target_include_directories(tests)   
 
-find_package (Threads)
+find_package (Threads) # REQUIRED for Google Test
 target_link_libraries(tests gtest ${CMAKE_THREAD_LIBS_INIT})    
 
 if (MSVC)
@@ -36,15 +36,10 @@ if (MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
 
-    # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else()
     target_compile_options(simple_gui_template PRIVATE -std=c++11 -g -fpermissive)
     target_compile_options(tests PRIVATE -std=c++11 -g -fpermissive)
-    # if (COVERAGE)
-    #     target_compile_options(tests PRIVATE --coverage)
-    #     target_link_libraries(tests PRIVATE --coverage)
-    # endif()
 endif()
 
 
