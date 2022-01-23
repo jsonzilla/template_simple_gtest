@@ -34,15 +34,15 @@ find_package (Threads) # REQUIRED for Google Test
 target_link_libraries(tests gtest ${CMAKE_THREAD_LIBS_INIT})
 
 if (MSVC)
-    target_compile_options(tests PRIVATE /std:c++14)
+    target_compile_options(tests PRIVATE /std:c++17)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
 
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else()
-    target_compile_options(template-simple-gtest PRIVATE -std=c++14 -g -fpermissive)
-    target_compile_options(tests PRIVATE -std=c++14 -g -fpermissive)
+    target_compile_options(template-simple-gtest PRIVATE -std=c++17 -g -fpermissive)
+    target_compile_options(tests PRIVATE -std=c++17 -g -fpermissive)
 endif()
 
 
